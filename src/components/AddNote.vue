@@ -3,10 +3,11 @@
         <div class="soto">
             <div class="addList">
                 <label for="addList" class="addLabel">
-                    <i class="fas fa-plus"></i>
+                    <i class="fas fa-plus titlePlus"></i>
                     <div class="addtxt">新增事項</div> 
                 </label>
                 <input type="checkbox" class="addListInput" id="addList">
+                
                 <div class="content">
                     <div class="title">
                         <label for="title" class="titleLabel">
@@ -16,54 +17,58 @@
                             <input type="checkbox" id="title" class="titleInput">
                             <div class="checkmark"></div>
                         </label>
-                        <i class="fas fa-pencil-alt pen"></i>
+                        <i class="fas fa-pencil-alt pen" id="pen"></i>
                         <i class="far fa-star star"></i>
                     </div>
-                    <div class="time">
-                        <div class="timeTitle">
-                            <i class="far fa-calendar-alt calendar"></i>
-                            <div class="timeTitleTxt">結束時間</div>
-                        </div>
-                        <div class="timeInput">
-                            <input type="date" class="date">
-                            <input type="time" id="time">
-                        </div>
-                    </div>
-                    <div class="time">
-                        <div class="timeTitle">
-                            <i class="far fa-file calendar"></i>
-                            <div class="timeTitleTxt">上傳檔案</div>
-                        </div>
-                        <div class="timeInput">
-                            <label for="update" class="updateFile">
-                                <div class="updateIcon">
-                                    <i class="fas fa-plus"></i>
-                                </div>
-                                <input type="file" id="update">
-                            </label>
-                        </div>
-                        <div class="comment">
+                    <div class="contentToggle">
+                        <div class="time">
                             <div class="timeTitle">
-                                <i class="far fa-comment-dots calendar"></i>
-                                <div class="timeTitleTxt">事項內容</div>
+                                <i class="far fa-calendar-alt calendar"></i>
+                                <div class="timeTitleTxt">結束時間</div>
                             </div>
-                            <div class="commentContent">
-                                <textarea cols="80" rows="5" placeholder="請輸入您的內容"></textarea>
+                            <div class="timeInput">
+                                <input type="date" class="date">
+                                <input type="time" id="time">
                             </div>
                         </div>
-                        <div class="btns">
-                            <button class="leftbtn btn">
-                                <label for="leftbtn" class="btnTxtLeft">
-                                    離開
-                                    <i class="fas fa-times btnIconLeft" id="leftbtn"></i>
+                        <div class="time">
+                            <div class="timeTitle">
+                                <i class="far fa-file calendar"></i>
+                                <div class="timeTitleTxt">上傳檔案</div>
+                            </div>
+                            <div class="timeInput">
+                                <label for="update" class="updateFile">
+                                    <div class="updateIcon">
+                                        <i class="fas fa-plus"></i>
+                                    </div>
+                                    <input type="file" id="update">
                                 </label>
-                            </button>
-                            <button class="rightbtn btn">
-                                <label for="rightbtn" class="btnTxtRight">
-                                    增加事項
-                                    <i class="fas fa-plus btnIconRight" id="rightbtn"></i>
-                                </label>
-                            </button>
+                            </div>
+                            <div class="comment">
+                                <div class="timeTitle">
+                                    <i class="far fa-comment-dots calendar"></i>
+                                    <div class="timeTitleTxt">事項內容</div>
+                                </div>
+                                <div class="commentContent">
+                                    <textarea cols="80" rows="5" placeholder="請輸入您的內容"></textarea>
+                                </div>
+                            </div>
+                            <div class="btns">
+                                <button class="leftbtn btn">
+                                    <label for="leftbtn" class="btnTxtLeft">
+                                        <i class="fas fa-times btnIconLeft" id="leftbtn">
+                                            離開
+                                        </i>
+                                    </label>
+                                </button>
+                                <button class="rightbtn btn">
+                                    <label for="rightbtn" class="btnTxtRight">
+                                        <i class="fas fa-plus btnIconRight" id="rightbtn">
+                                            增加事項
+                                        </i>
+                                    </label>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -74,7 +79,24 @@
 
 <script>
 export default {
-    
+    mounted(){
+        $("#pen").click(() => {
+            $(".contentToggle").toggle("slow");
+        })
+    },
+    data(){
+        return {
+            datas: [
+                {
+                    "title": "上班",
+                    "date": "1986/07/23",
+                    "time": "上午 01:15",
+                    "update": "",
+                    "comment": "我是內容",
+                }
+            ]
+        }
+    }
 }
 </script>
 
@@ -84,10 +106,8 @@ export default {
 }
 .soto{
     height: 900px;
-    border: 1px solid;
 }
 .addList{
-    border: 1px solid;
     height: 100px;
     display: flex;
     justify-content: center;
@@ -99,17 +119,20 @@ export default {
 }
 .addLabel{
     width: 600px;
-    height: 60px;
+    height: 50px;
     background-color: #fff;
     border: 1px solid gray;
     border-radius: 5px;
-    padding: 5px 0px 0px 15px;
-    cursor: text;
+    padding: 0px 0px 0px 15px;
+    cursor: pointer;
 }
-i{
+.addLabel:hover{
+    background-color: #f2f2f2;
+}
+.titlePlus{
     font-size: 36px;
     float: left;
-    margin-top: 5px;
+    margin-top: 7px;
     color: gray;
 }
 .addtxt{
@@ -125,15 +148,18 @@ input.addListInput{
     width: 600px;
     height: 500px;
     top: 150px;
-    border: 1px solid gray;
     position: absolute;
-    box-shadow: 8px 8px 8px 0px rgba(0, 0, 0, 0.5);
 }
 .title{
-    border-bottom: 2px solid gray;
     width: 600px;
     height: 70px;
     padding: 12px 0 0 20px;
+    border: 1px solid gray;
+}
+.contentToggle{
+    height: 430px;
+    border: 1px solid gray;
+    box-shadow: 8px 8px 8px 0px rgba(0, 0, 0, 0.5);
 }
 .titleInput{
     width: 24px;
@@ -156,7 +182,7 @@ input.addListInput{
     opacity: 0;
 }
 .titleLabel:hover input ~ .checkmark{
-    background-color: #aaa;
+    background-color: #f2f2f2;
 }
 .titleLabel input:checked ~ .checkmark{
     background-color: #2196F3;
@@ -202,6 +228,7 @@ input.addListInput{
     float: right;
     margin-right: 25px;
     color: #4a90e2;
+    cursor: pointer;
 }
 .time{
     height: 70px;
@@ -220,6 +247,7 @@ input.addListInput{
     color: black;
     margin-left: 8px;
     float: left;
+    margin-top: 5px;
 }
 .timeTitleTxt{
     font-size: 19px;
@@ -288,28 +316,26 @@ input.addListInput{
 .leftbtn{
     background-color: #fff;
 }
+.leftbtn:hover{
+    background-color: #f2f2f2;
+}
 .rightbtn{
     background-color: #4a90e2;
 }
+.rightbtn:hover{
+    background-color: #4587d3
+}
 .btnIconLeft{
-    font-size: 28px;
+    font-size: 22px;
     color: red;
     margin-right: 15px;
-}
-.btnTxtLeft{
-    font-size: 20px;
-    color: red;
-    font-weight: bold;
+    margin-top: 8px;
 }
 .btnIconRight{
-    font-size: 28px;
+    font-size: 22px;
     color: #fff;
     margin-right: 15px;
-}
-.btnTxtRight{
-    font-size: 20px;
-    color: #fff;
-    font-weight: bold;
+    margin-top: 8px;
 }
 </style>
 

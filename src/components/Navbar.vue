@@ -2,15 +2,23 @@
     <div class="soto">
         <ul>
             <div class="allLi">
-                <li class="checked">
-                   <router-link class="liNaka" :to="{path: '/'}">新增事項</router-link>
-                </li>
-                <li>
-                   <router-link class="liNaka" :to="{path: '/isIng'}">進行中</router-link>
-                </li>
-                <li>
-                   <router-link class="liNaka" :to="{path: '/complete'}">完成事項</router-link>
-                </li>
+                <router-link class="liNaka" :to="{path: '/'}">
+                    <li :class="List01" @click="chgPage(0)">
+                        新增事項
+                    </li>
+                </router-link>
+                
+                <router-link class="liNaka" :to="{path: '/isIng'}">
+                    <li :class="List02" @click="chgPage(1)">
+                        進行中
+                    </li>
+                </router-link>
+
+                <router-link class="liNaka" :to="{path: '/complete'}">
+                    <li :class="List03" @click="chgPage(2)">
+                    完成事項
+                    </li>
+                </router-link>
             </div>
         </ul>
     </div>
@@ -18,9 +26,32 @@
 
 <script>
 export default {
-
-    mounted(){
-        
+    data(){
+        return {
+            liCount: 0
+        }
+    },
+    methods:{
+        chgPage(val){
+            this.liCount = val;
+        }
+    },
+    computed:{
+        List01(){
+            if (this.liCount == 0){
+                return "checked";
+            }
+        },
+        List02(){
+            if (this.liCount == 1){
+                return "checked";
+            }
+        },
+        List03(){
+            if (this.liCount == 2){
+                return "checked";
+            }
+        }
     }
 }
 </script>
@@ -49,6 +80,7 @@ li{
 }
 ul li.checked{
     border-bottom: 4px solid #00408B;
+    color: white;
 }
 .liNaka{
     color: #00408B;
