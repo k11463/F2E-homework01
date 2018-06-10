@@ -77,6 +77,7 @@ li{
     font-size: 18px;
     cursor: pointer;
     user-select: none;
+    transition-duration: 0.8s;
 }
 ul li.checked{
     border-bottom: 4px solid #00408B;

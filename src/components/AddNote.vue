@@ -1,77 +1,83 @@
 <template>
     <div>
-        <div class="soto">
-            <div class="addList">
-                <label for="addList" class="addLabel">
-                    <i class="fas fa-plus titlePlus"></i>
-                    <div class="addtxt">新增事項</div> 
-                </label>
-                <input type="checkbox" class="addListInput" id="addList">
+        <div class="container soto">
+            <div class="row addList">
+
+                <div class="col-sm-12 topRow">
+                    <label for="addList" class="addLabel">
+                        <i class="fas fa-plus titlePlus"></i>
+                        <div class="addtxt">新增事項</div> 
+                    </label>
+                    <input type="checkbox" class="addListInput" id="addList">
+                </div>
                 
-                <div class="content">
-                    <div class="title">
-                        <label for="title" class="titleLabel">
-                            <div class="titleTxt">
-                                新增標題
-                            </div>
-                            <input type="checkbox" id="title" class="titleInput">
-                            <div class="checkmark"></div>
-                        </label>
-                        <i class="fas fa-pencil-alt pen" id="pen"></i>
-                        <i class="far fa-star star"></i>
-                    </div>
-                    <div class="contentToggle">
-                        <div class="time">
-                            <div class="timeTitle">
-                                <i class="far fa-calendar-alt calendar"></i>
-                                <div class="timeTitleTxt">結束時間</div>
-                            </div>
-                            <div class="timeInput">
-                                <input type="date" class="date">
-                                <input type="time" id="time">
-                            </div>
+                <div class="col-sm-12 midRow" v-for="(data, id) in datas" :key="data.id">
+                    <div class="content">
+                        <div class="title">
+                            <label for="title" class="titleLabel">
+                                <div class="titleTxt">
+                                    {{data.title}}
+                                </div>
+                                <input type="checkbox" id="title" class="titleInput">
+                                <div class="checkmark"></div>
+                            </label>
+                            <i class="fas fa-pencil-alt pen" @click="pen(id)"></i>
+                            <i class="far fa-star star"></i>
                         </div>
-                        <div class="time">
-                            <div class="timeTitle">
-                                <i class="far fa-file calendar"></i>
-                                <div class="timeTitleTxt">上傳檔案</div>
-                            </div>
-                            <div class="timeInput">
-                                <label for="update" class="updateFile">
-                                    <div class="updateIcon">
-                                        <i class="fas fa-plus"></i>
-                                    </div>
-                                    <input type="file" id="update">
-                                </label>
-                            </div>
-                            <div class="comment">
+                        <div class="contentToggle" v-if="data.show">
+                            <div class="time">
                                 <div class="timeTitle">
-                                    <i class="far fa-comment-dots calendar"></i>
-                                    <div class="timeTitleTxt">事項內容</div>
+                                    <i class="far fa-calendar-alt calendar"></i>
+                                    <div class="timeTitleTxt">結束時間</div>
                                 </div>
-                                <div class="commentContent">
-                                    <textarea cols="80" rows="5" placeholder="請輸入您的內容"></textarea>
+                                <div class="timeInput">
+                                    <input type="date" class="date" :value="data.date">
+                                    <input type="time" id="time" :value="data.time">
                                 </div>
                             </div>
-                            <div class="btns">
-                                <button class="leftbtn btn">
-                                    <label for="leftbtn" class="btnTxtLeft">
-                                        <i class="fas fa-times btnIconLeft" id="leftbtn">
-                                            離開
-                                        </i>
+                            <div class="time">
+                                <div class="timeTitle">
+                                    <i class="far fa-file calendar"></i>
+                                    <div class="timeTitleTxt">上傳檔案</div>
+                                </div>
+                                <div class="timeInput">
+                                    <label for="update" class="updateFile">
+                                        <div class="updateIcon">
+                                            <i class="fas fa-plus"></i>
+                                        </div>
+                                        <input type="file" id="update">
                                     </label>
-                                </button>
-                                <button class="rightbtn btn">
-                                    <label for="rightbtn" class="btnTxtRight">
-                                        <i class="fas fa-plus btnIconRight" id="rightbtn">
-                                            增加事項
-                                        </i>
-                                    </label>
-                                </button>
+                                </div>
+                                <div class="comment">
+                                    <div class="timeTitle">
+                                        <i class="far fa-comment-dots calendar"></i>
+                                        <div class="timeTitleTxt">事項內容</div>
+                                    </div>
+                                    <div class="commentContent">
+                                        <textarea cols="80" rows="5" placeholder="請輸入您的內容">{{ data.comment }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="btns">
+                                    <button class="leftbtn btn">
+                                        <label for="leftbtn" class="btnTxtLeft">
+                                            <i class="fas fa-times btnIconLeft" id="leftbtn">
+                                                離開
+                                            </i>
+                                        </label>
+                                    </button>
+                                    <button class="rightbtn btn">
+                                        <label for="rightbtn" class="btnTxtRight">
+                                            <i class="fas fa-plus btnIconRight" id="rightbtn">
+                                                增加事項
+                                            </i>
+                                        </label>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -79,22 +85,33 @@
 
 <script>
 export default {
-    mounted(){
-        $("#pen").click(() => {
-            $(".contentToggle").toggle("slow");
-        })
-    },
-    data(){
+    data() {
+        var datas = [
+            {
+                "title": "上班",
+                "date": "1986-07-23",
+                "time": "07:30:00",
+                "update": "",
+                "comment": "幹 又要上班了 機掰人",
+                "show": false,
+            },
+            {
+                "title": "下班",
+                "date": "1986-07-23",
+                "time": "17:00:00",
+                "update": "",
+                "comment": "下班惹~~ 爽~~~~",
+                "show": false,
+            }
+        ]
         return {
-            datas: [
-                {
-                    "title": "上班",
-                    "date": "1986/07/23",
-                    "time": "上午 01:15",
-                    "update": "",
-                    "comment": "我是內容",
-                }
-            ]
+            datas: datas,
+            show: false,
+        }
+    },
+    methods: {
+        pen(id){
+            this.datas[id].show = !this.datas[id].show;
         }
     }
 }
@@ -104,8 +121,18 @@ export default {
 *{
     user-select: none;
 }
-.soto{
-    height: 900px;
+.topRow{
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.midRow{
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 .addList{
     height: 100px;
@@ -147,7 +174,6 @@ input.addListInput{
 .content{
     width: 600px;
     height: 500px;
-    top: 150px;
     position: absolute;
 }
 .title{
